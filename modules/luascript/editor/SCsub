@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+
+Import('env')
+Import('env_luascript')
+
+env_editor = env_luascript.Clone()
+
+env_editor.add_source_files(env.modules_sources,'*.cpp')

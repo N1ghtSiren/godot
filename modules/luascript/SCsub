@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+
+Import("env")
+Import('env_modules')
+
+env_luascript = env_modules.Clone()
+
+if not env.msvc:
+    CXXFLAGS='-std=c++17'
+else:
+    CXXFLAGS='/std:c++17'
+
+env_luascript['CXXFLAGS'] = [CXXFLAGS]
+
+Export('env_luascript')
+
+SConscript('lib/lua/SCsub')
+SConscript('lib/antlr4/SCsub')
+SConscript('parser/SCsub')
+if env['tools']:
+    SConscript('editor/SCsub')
+
+env_luascript.add_source_files(env.modules_sources,'*.cpp')
